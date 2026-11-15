@@ -8,7 +8,7 @@
   <title>Bách Hóa XANH - Mua sắm tiện lợi</title>
   <style>
     /* CSS gốc được gộp từ css/style.css và css/gio-hang.css. */
-    /* INLINE_CSS_START */
+    /* CSS của css/style.css và css/gio-hang.css đã được gộp ở đây. */
     /* Begin style.css */
 /* =========================
    1. Thiết lập chung
@@ -1950,7 +1950,6 @@ body {
   }
 }
     /* End ' + gio-hang.css + ' */
-    /* INLINE_CSS_END */
 
     /* CSS điều chỉnh giao diện Single-File Web App */
     :root {
@@ -2475,10 +2474,10 @@ body {
   <!-- Điều hướng danh mục cố định khi cuộn trang -->
   <nav class="sticky-tabs" aria-label="Điều hướng danh mục">
     <div class="tabs-inner" role="tablist" aria-label="Danh mục sản phẩm">
-      <button class="tab active" id="tab-today" type="button" role="tab" aria-selected="true" data-category="today">Hôm nay ăn gì</button>
-      <button class="tab" id="tab-promo" type="button" role="tab" aria-selected="false" data-category="promo">Khuyến mãi sốc</button>
-      <button class="tab" id="tab-fresh" type="button" role="tab" aria-selected="false" data-category="fresh">Tươi sống</button>
-      <button class="tab" id="tab-daily" type="button" role="tab" aria-selected="false" data-category="daily">Tiêu dùng</button>
+      <button class="tab active" id="tab-today" type="button" role="tab" aria-controls="san-pham" aria-selected="true" data-category="today">Hôm nay ăn gì</button>
+      <button class="tab" id="tab-promo" type="button" role="tab" aria-controls="san-pham" aria-selected="false" data-category="promo">Khuyến mãi sốc</button>
+      <button class="tab" id="tab-fresh" type="button" role="tab" aria-controls="san-pham" aria-selected="false" data-category="fresh">Tươi sống</button>
+      <button class="tab" id="tab-daily" type="button" role="tab" aria-controls="san-pham" aria-selected="false" data-category="daily">Tiêu dùng</button>
     </div>
   </nav>
 
@@ -2500,7 +2499,7 @@ body {
     </section>
 
     <!-- Danh sách sản phẩm được lọc theo tab và từ khóa tìm kiếm -->
-    <section class="category-section" id="san-pham" aria-labelledby="catalog-title">
+    <section class="category-section" id="san-pham" role="tabpanel" aria-labelledby="tab-today">
       <div class="section-heading">
         <div>
           <p class="eyebrow">GỢI Ý MỖI NGÀY</p>
@@ -2592,7 +2591,6 @@ body {
       const catalogEyebrow = document.querySelector("#san-pham .eyebrow");
       const catalogDescription = document.getElementById("catalog-description");
       const cartModal = document.getElementById("cart-modal");
-      const cartDialog = cartModal.querySelector(".cart-dialog");
       const cartItemsElement = document.getElementById("cart-items");
       const cartCount = document.getElementById("cart-count");
       const cartTotalElement = document.getElementById("cart-total");
@@ -2680,7 +2678,6 @@ body {
         cartCount.textContent = String(itemCount);
         cartTotalElement.textContent = formatPrice(total);
         checkoutButton.disabled = itemCount === 0;
-        checkoutButton.textContent = itemCount ? "Tiếp tục mua sắm" : "Tiếp tục mua sắm";
       }
 
       function openCart() {
@@ -2709,6 +2706,7 @@ body {
           item.classList.toggle("active", selected);
           item.setAttribute("aria-selected", String(selected));
         });
+        document.getElementById("san-pham").setAttribute("aria-labelledby", tab.id);
         const info = categoryInfo[activeCategory];
         catalogTitle.textContent = info.title;
         catalogEyebrow.textContent = info.eyebrow;
