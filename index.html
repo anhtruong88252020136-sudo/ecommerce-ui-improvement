@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Giao diện siêu thị trực tuyến với thanh điều hướng danh mục cố định.">
+  <title>Bách Hóa Xanh - Mua sắm tiện lợi</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#" aria-label="Bách Hóa Xanh - Trang chủ">
+        <span class="brand-mark">BH</span>
+        <span>BÁCH HÓA <strong>XANH</strong></span>
+      </a>
+      <form class="search-form" role="search" onsubmit="return false;">
+        <label class="visually-hidden" for="search">Tìm kiếm sản phẩm</label>
+        <input id="search" type="search" placeholder="Bạn tìm gì ở Bách Hóa Xanh?">
+        <button type="submit" aria-label="Tìm kiếm">⌕</button>
+      </form>
+      <a class="cart-link" href="#san-pham">Giỏ hàng <span>0</span></a>
+    </div>
+  </header>
+
+  <nav class="sticky-tabs" aria-label="Điều hướng danh mục">
+    <div class="tabs-inner">
+      <a class="tab active" href="#hom-nay-an-gi">Hôm nay ăn gì</a>
+      <a class="tab" href="#khuyen-mai">Khuyến mãi sốc</a>
+      <a class="tab" href="#tuoi-song">Tươi sống</a>
+      <a class="tab" href="#tieu-dung">Tiêu dùng</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">ĐI CHỢ ONLINE • GIAO HÀNG TIỆN LỢI</p>
+        <h1>Thực phẩm tươi ngon,<br><span>mua sắm thảnh thơi</span></h1>
+        <p>Khám phá sản phẩm thiết yếu và lựa chọn nhanh theo nhu cầu của bạn.</p>
+        <a class="primary-button" href="#hom-nay-an-gi">Khám phá ngay</a>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <span class="hero-fruit fruit-one">🥑</span>
+        <span class="hero-fruit fruit-two">🥕</span>
+        <span class="hero-fruit fruit-three">🍊</span>
+        <span class="hero-basket">🧺</span>
+      </div>
+    </section>
+
+    <section class="category-section" id="hom-nay-an-gi">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">GỢI Ý MỖI NGÀY</p>
+          <h2>Hôm nay ăn gì?</h2>
+          <p class="section-description">Một vài nguyên liệu dễ kết hợp cho bữa ăn gia đình.</p>
+        </div>
+        <a class="view-all" href="#san-pham">Xem sản phẩm →</a>
+      </div>
+      <div class="product-grid" id="san-pham">
+        <article class="product-card">
+          <div class="product-image"><img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=700&q=80" alt="Thịt heo tươi"></div>
+          <div class="product-info">
+            <span class="product-tag">Tươi ngon mỗi ngày</span>
+            <h3>Thịt heo ba rọi</h3>
+            <p class="product-unit">Khay 500g</p>
+            <div class="product-bottom"><strong class="price">89.000đ</strong><button class="add-button" type="button">Thêm</button></div>
+          </div>
+        </article>
+        <article class="product-card">
+          <div class="product-image"><img src="https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?auto=format&fit=crop&w=700&q=80" alt="Rau cải xanh tươi"></div>
+          <div class="product-info">
+            <span class="product-tag">Rau củ</span>
+            <h3>Rau cải xanh</h3>
+            <p class="product-unit">Bó 300g</p>
+            <div class="product-bottom"><strong class="price">18.000đ</strong><button class="add-button" type="button">Thêm</button></div>
+          </div>
+        </article>
+        <article class="product-card">
+          <div class="product-image"><img src="https://images.unsplash.com/photo-1518843875459-f738682238a6?auto=format&fit=crop&w=700&q=80" alt="Cà chua đỏ"></div>
+          <div class="product-info">
+            <span class="product-tag">Nguyên liệu nấu ăn</span>
+            <h3>Cà chua Đà Lạt</h3>
+            <p class="product-unit">Túi 500g</p>
+            <div class="product-bottom"><strong class="price">22.000đ</strong><button class="add-button" type="button">Thêm</button></div>
+          </div>
+        </article>
+        <article class="product-card">
+          <div class="product-image"><img src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=700&q=80" alt="Chuối tươi"></div>
+          <div class="product-info">
+            <span class="product-tag">Trái cây</span>
+            <h3>Chuối già Nam Mỹ</h3>
+            <p class="product-unit">Nải khoảng 1kg</p>
+            <div class="product-bottom"><strong class="price">29.000đ</strong><button class="add-button" type="button">Thêm</button></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="category-section tinted" id="khuyen-mai">
+      <div class="section-heading">
+        <div><p class="eyebrow">MUA SẮM TIẾT KIỆM</p><h2>Khuyến mãi sốc</h2><p class="section-description">Các lựa chọn ưu đãi dành cho nhu cầu hằng ngày.</p></div>
+      </div>
+      <div class="promo-strip"><span>🎉</span><div><strong>Ưu đãi mỗi ngày</strong><p>Kiểm tra giá và điều kiện khuyến mãi trước khi đặt hàng.</p></div></div>
+    </section>
+
+    <section class="category-section" id="tuoi-song">
+      <div class="section-heading"><div><p class="eyebrow">TƯƠI NGON CHỌN LỌC</p><h2>Thực phẩm tươi sống</h2><p class="section-description">Thịt, cá, rau củ và trái cây cho bữa ăn đủ chất.</p></div></div>
+      <div class="category-pills"><span>🥬 Rau củ</span><span>🐟 Hải sản</span><span>🍗 Thịt gia cầm</span><span>🍎 Trái cây</span></div>
+    </section>
+
+    <section class="category-section tinted" id="tieu-dung">
+      <div class="section-heading"><div><p class="eyebrow">THIẾT YẾU GIA ĐÌNH</p><h2>Hàng tiêu dùng</h2><p class="section-description">Những sản phẩm cần thiết cho sinh hoạt mỗi ngày.</p></div></div>
+      <div class="category-pills"><span>🥛 Sữa & đồ uống</span><span>🍜 Thực phẩm khô</span><span>🧼 Chăm sóc nhà cửa</span><span>🧴 Chăm sóc cá nhân</span></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p><strong>BÁCH HÓA XANH</strong> – Giao diện minh họa phục vụ bài tập HTML5 và CSS3.</p>
+    <p class="footer-note">Sản phẩm, giá bán và hình ảnh chỉ mang tính minh họa, không phải dữ liệu giao dịch thực tế.</p>
+  </footer>
+</body>
+</html>
