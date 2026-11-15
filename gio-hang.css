@@ -1,0 +1,791 @@
+/* ==========================================================================
+   1. BIẾN THIẾT KẾ ĐỒNG BỘ GIAO DIỆN MẪU
+   ========================================================================== */
+:root {
+  --green-primary: #138045;
+  --green-hover: #0e6636;
+  --green-soft: #eaf6ee;
+  --green-border: #cde8d6;
+
+  --red-price: #dc3522;
+  --red-danger: #c92a2a;
+  --red-soft: #fff5f5;
+  --red-border: #ffc9c9;
+
+  --amber-warn: #b45309;
+  --amber-soft: #fffbeb;
+  --amber-border: #fde68a;
+
+  --bg-page: #f8faf9;
+  --bg-card: #ffffff;
+  --text-dark: #1c1e21;
+  --text-muted: #65676b;
+  --border-light: #e8ecea;
+
+  --radius-card: 16px;
+  --radius-inner: 12px;
+  --radius-pill: 999px;
+  --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.04);
+  --shadow-bottom: 0 -4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================================
+   2. RESET & THÀNH PHẦN DÙNG CHUNG
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-dark);
+  line-height: 1.5;
+  padding-bottom: 135px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+/* Nhãn chữ in hoa xanh lá đặc trưng trên đầu mỗi khối */
+.eyebrow-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--green-primary);
+  margin-bottom: 4px;
+}
+
+.eyebrow-label--neutral {
+  color: var(--text-muted);
+}
+
+/* Định dạng giá đỏ cam đồng bộ với thẻ sản phẩm mẫu */
+.price-tag {
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--red-price);
+}
+
+.price-tag--lg {
+  font-size: 1.35rem;
+}
+
+.price-old {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.price-muted {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* Hệ thống nút viên thuốc (Pill Buttons) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  white-space: nowrap;
+}
+
+.btn--sm {
+  min-height: 36px;
+  padding: 0 16px;
+  font-size: 0.85rem;
+}
+
+.btn--pill-primary {
+  background-color: var(--green-primary);
+  color: #ffffff;
+}
+
+.btn--pill-primary:hover:not(:disabled) {
+  background-color: var(--green-hover);
+}
+
+.btn--pill-outline {
+  background-color: #ffffff;
+  border-color: var(--green-primary);
+  color: var(--green-primary);
+}
+
+.btn--pill-outline:hover {
+  background-color: var(--green-soft);
+}
+
+.btn--pill-danger {
+  background-color: var(--red-danger);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   3. KHUNG BỐ CỤC TỔNG THỂ (MOBILE-FIRST)
+   ========================================================================== */
+.cart-page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.page-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.page-heading__title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.page-heading__sub {
+  font-size: 0.925rem;
+  color: var(--text-muted);
+}
+
+.link-arrow {
+  align-self: flex-start;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.925rem;
+  color: var(--green-primary);
+}
+
+.link-arrow:hover {
+  text-decoration: underline;
+}
+
+.cart-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.cart-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ==========================================================================
+   4. CẢI TIẾN 1: KHO PHỤC VỤ & TIẾN TRÌNH FREESHIP + GỢI Ý BÙ ĐƠN
+   ========================================================================== */
+.card-box {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-card);
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.location-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.location-bar__address {
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.95rem;
+}
+
+.location-bar__address span {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.freeship-panel {
+  background-color: var(--green-soft);
+  border: 1px solid var(--green-border);
+  border-radius: var(--radius-inner);
+  padding: 16px;
+}
+
+.freeship-panel__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.freeship-panel__top strong {
+  color: var(--green-primary);
+}
+
+.freeship-panel__ratio {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--green-primary);
+}
+
+.freeship-panel__progress {
+  width: 100%;
+  height: 10px;
+  border-radius: var(--radius-pill);
+  appearance: none;
+  border: none;
+  overflow: hidden;
+  background-color: #d3eadd;
+}
+
+.freeship-panel__progress::-webkit-progress-bar {
+  background-color: #d3eadd;
+}
+
+.freeship-panel__progress::-webkit-progress-value {
+  background-color: var(--green-primary);
+  border-radius: var(--radius-pill);
+}
+
+.freeship-panel__progress::-moz-progress-bar {
+  background-color: var(--green-primary);
+}
+
+/* Dải thẻ sản phẩm gợi ý bù đơn đồng bộ giao diện mẫu */
+.upsell-strip {
+  margin-top: 16px;
+}
+
+.upsell-strip__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.upsell-strip__hint {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.upsell-strip__grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 210px;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 4px;
+}
+
+.mini-card {
+  scroll-snap-align: start;
+  background-color: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-inner);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.mini-card__img {
+  width: 100%;
+  height: 92px;
+  object-fit: cover;
+  display: block;
+}
+
+.mini-card__body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.mini-card__cat {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--green-primary);
+}
+
+.mini-card__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 2px 0;
+}
+
+.mini-card__spec {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.mini-card__footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ==========================================================================
+   5. CẢI TIẾN 2: CẢNH BÁO ĐỒNG BỘ TỒN KHO / GIÁ
+   ========================================================================== */
+.sync-banner {
+  background-color: var(--red-soft);
+  border: 1px solid var(--red-border);
+  border-radius: var(--radius-card);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sync-banner__badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--red-danger);
+  letter-spacing: 0.04em;
+  margin-bottom: 2px;
+}
+
+.sync-banner__desc {
+  font-size: 0.9rem;
+  color: #7f1d1d;
+}
+
+/* ==========================================================================
+   6. CẢI TIẾN 3: TÁCH NHÓM GIAO HÀNG & THẺ SẢN PHẨM
+   ========================================================================== */
+.shipment-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.shipment-card__header {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border-light);
+  background-color: #fbfdfc;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.shipment-card--fresh .shipment-card__header {
+  background-color: #f4fbf6;
+}
+
+.shipment-card__title {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.slot-selector {
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+}
+
+.slot-selector__label {
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.slot-selector__control {
+  flex: 1;
+  min-height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-pill);
+  background-color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.item-row {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border-light);
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  grid-template-areas:
+    "img info"
+    "img pricing"
+    "controls controls";
+  gap: 10px 14px;
+  align-items: center;
+}
+
+.item-row:last-child {
+  border-bottom: none;
+}
+
+/* Đánh dấu sản phẩm thay đổi giá */
+.item-row[data-price-changed="true"] {
+  background-color: var(--amber-soft);
+}
+
+/* Làm mờ sản phẩm hết hàng */
+.item-row[data-stock="out"] {
+  background-color: #fafafa;
+}
+
+.item-row[data-stock="out"] .item-row__img,
+.item-row[data-stock="out"] .item-row__info,
+.item-row[data-stock="out"] .item-row__pricing,
+.item-row[data-stock="out"] .qty-stepper {
+  opacity: 0.55;
+}
+
+.item-row__img {
+  grid-area: img;
+  width: 76px;
+  height: 76px;
+  border-radius: var(--radius-inner);
+  object-fit: cover;
+  border: 1px solid var(--border-light);
+}
+
+.item-row__info {
+  grid-area: info;
+}
+
+.item-row__cat {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--green-primary);
+}
+
+.item-row__title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 2px 0;
+}
+
+.item-row__spec {
+  font-size: 0.825rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.stock-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+}
+
+.stock-badge--ok {
+  background-color: var(--green-soft);
+  color: var(--green-primary);
+}
+
+.stock-badge--warn {
+  background-color: #fef3c7;
+  color: var(--amber-warn);
+}
+
+.stock-badge--out {
+  background-color: var(--red-soft);
+  color: var(--red-danger);
+}
+
+.item-row__pricing {
+  grid-area: pricing;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.item-row__controls {
+  grid-area: controls;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border-light);
+}
+
+.qty-stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-pill);
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.qty-stepper__btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--text-dark);
+}
+
+.qty-stepper__btn:disabled {
+  cursor: not-allowed;
+  color: var(--text-muted);
+}
+
+.qty-stepper__val {
+  width: 36px;
+  height: 40px;
+  border: none;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  -moz-appearance: textfield;
+}
+
+.qty-stepper__val::-webkit-inner-spin-button,
+.qty-stepper__val::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.item-row__total {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-text-remove {
+  min-height: 40px;
+  padding: 0 8px;
+  border: none;
+  background: transparent;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.btn-text-remove:hover {
+  color: var(--red-danger);
+}
+
+/* ==========================================================================
+   7. CẢI TIẾN 4: TÓM TẮT ĐƠN HÀNG & CHỐT ĐƠN AN TOÀN
+   ========================================================================== */
+.summary-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-card);
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.summary-card__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.voucher-form {
+  display: flex;
+  gap: 8px;
+}
+
+.voucher-form__input {
+  flex: 1;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-pill);
+  font-size: 0.9rem;
+}
+
+.bill-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.925rem;
+}
+
+.bill-breakdown__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.bill-breakdown__row dt {
+  color: var(--text-muted);
+}
+
+.bill-breakdown__row--save dd {
+  color: var(--green-primary);
+  font-weight: 600;
+}
+
+.bill-breakdown__row--grand {
+  margin-top: 6px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-light);
+}
+
+.bill-breakdown__row--grand dt {
+  color: var(--text-dark);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.bill-breakdown__row--grand dd {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+}
+
+.bill-breakdown__row--grand small {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Ghim cố định thanh đặt hàng ở cạnh dưới trên điện thoại */
+.checkout-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  background-color: #ffffff;
+  border-top: 1px solid var(--border-light);
+  box-shadow: var(--shadow-bottom);
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.checkout-bar__note {
+  font-size: 0.8rem;
+  color: var(--red-danger);
+  text-align: center;
+}
+
+.btn--checkout {
+  width: 100%;
+  min-height: 48px;
+  font-size: 1rem;
+}
+
+.btn--checkout:disabled {
+  background-color: #a3b1a9;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   8. GIAO DIỆN MÁY TÍNH (DESKTOP >= 1024px)
+   ========================================================================== */
+@media (min-width: 1024px) {
+  body {
+    padding-bottom: 32px;
+  }
+
+  .cart-page {
+    padding: 28px 24px;
+  }
+
+  .page-heading {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .cart-layout {
+    grid-template-columns: minmax(0, 1fr) 360px;
+    align-items: start;
+    gap: 24px;
+  }
+
+  .upsell-strip__grid {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(3, 1fr);
+    overflow-x: visible;
+  }
+
+  .sync-banner {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .shipment-card__header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .item-row {
+    grid-template-columns: 76px minmax(0, 2fr) auto auto;
+    grid-template-areas: "img info pricing controls";
+    gap: 16px;
+  }
+
+  .item-row__pricing {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+  }
+
+  .item-row__controls {
+    border-top: none;
+    padding-top: 0;
+    gap: 16px;
+  }
+
+  .item-row__total {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+    min-width: 90px;
+  }
+
+  .summary-card {
+    position: sticky;
+    top: 24px;
+  }
+
+  .checkout-bar {
+    position: static;
+    box-shadow: none;
+    border-top: none;
+    padding: 0;
+  }
+}
