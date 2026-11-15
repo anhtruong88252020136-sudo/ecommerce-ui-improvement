@@ -1,0 +1,767 @@
+/* ==========================================================================
+   1. BIẾN THIẾT KẾ (CSS CUSTOM PROPERTIES)
+   ========================================================================== */
+:root {
+  --color-primary: #008848;
+  --color-primary-dark: #006b38;
+  --color-primary-soft: #e8f5ee;
+  
+  --color-warning-bg: #fffbeb;
+  --color-warning-border: #f59e0b;
+  --color-warning-text: #92400e;
+  
+  --color-danger: #dc2626;
+  --color-danger-soft: #fef2f2;
+  --color-danger-border: #fecaca;
+  
+  --color-bg-page: #f3f4f6;
+  --color-bg-card: #ffffff;
+  --color-text-main: #1f2937;
+  --color-text-muted: #6b7280;
+  --color-border: #e5e7eb;
+
+  --space-xs: 0.375rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-sticky: 0 -4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================================
+   2. RESET & TIỆN ÍCH CHUNG
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--color-bg-page);
+  color: var(--color-text-main);
+  line-height: 1.5;
+  padding-bottom: 130px; /* Chừa khoảng trống cho thanh đặt hàng ghim đáy trên mobile */
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+/* Hệ thống nút bấm chuẩn vùng chạm tối thiểu 44px */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 var(--space-md);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn--outline-primary {
+  background-color: var(--color-bg-card);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn--outline-primary:hover {
+  background-color: var(--color-primary-soft);
+}
+
+.btn--quick-add {
+  min-height: 36px;
+  padding: 0 var(--space-sm);
+  font-size: 0.8125rem;
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+.btn--quick-add:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.btn--danger-soft {
+  background-color: var(--color-danger);
+  color: #ffffff;
+  width: 100%;
+}
+
+.btn--danger-inline {
+  min-height: 36px;
+  padding: 0 var(--space-sm);
+  font-size: 0.8125rem;
+  background-color: var(--color-danger-soft);
+  border-color: var(--color-danger-border);
+  color: var(--color-danger);
+}
+
+/* ==========================================================================
+   3. BỐ CỤC TỔNG THỂ (MOBILE-FIRST 1 CỘT)
+   ========================================================================== */
+.cart-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-sm);
+}
+
+.cart-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+.cart-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* ==========================================================================
+   4. VÙNG 1: THANH ĐỊNH VỊ KHO & TIẾN TRÌNH FREESHIP
+   ========================================================================== */
+.context-card {
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.location-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px dashed var(--color-border);
+}
+
+.location-bar__badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  background-color: var(--color-primary-soft);
+  padding: 2px 8px;
+  border-radius: 99px;
+  margin-bottom: 4px;
+}
+
+.location-bar__address {
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+}
+
+.location-bar__address span {
+  color: var(--color-text-muted);
+  font-size: 0.825rem;
+}
+
+/* Thanh tiến trình Freeship */
+.freeship-bar {
+  background-color: #f8fafc;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm);
+}
+
+.freeship-bar__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xs);
+  font-size: 0.875rem;
+}
+
+.freeship-bar__header strong {
+  color: var(--color-primary);
+}
+
+.freeship-bar__percent {
+  font-weight: 700;
+  color: var(--color-primary);
+  font-size: 0.8125rem;
+}
+
+.freeship-bar__progress {
+  width: 100%;
+  height: 10px;
+  border-radius: 99px;
+  overflow: hidden;
+  appearance: none;
+  border: none;
+  background-color: #e2e8f0;
+}
+
+.freeship-bar__progress::-webkit-progress-bar {
+  background-color: #e2e8f0;
+  border-radius: 99px;
+}
+
+.freeship-bar__progress::-webkit-progress-value {
+  background-color: var(--color-primary);
+  border-radius: 99px;
+}
+
+.freeship-bar__progress::-moz-progress-bar {
+  background-color: var(--color-primary);
+  border-radius: 99px;
+}
+
+/* Dải gợi ý bù đơn cuộn ngang trên mobile */
+.quick-add {
+  margin-top: var(--space-sm);
+}
+
+.quick-add__title {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-xs);
+}
+
+.quick-add__list {
+  display: flex;
+  gap: var(--space-sm);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 4px;
+}
+
+.quick-add__item {
+  flex: 0 0 240px;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-xs);
+}
+
+.quick-add__thumb {
+  font-size: 1.5rem;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  background-color: var(--color-bg-page);
+  border-radius: var(--radius-sm);
+}
+
+.quick-add__meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.quick-add__name {
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.quick-add__price {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* ==========================================================================
+   5. VÙNG 2: CẢNH BÁO ĐỒNG BỘ KHO / GIÁ
+   ========================================================================== */
+.sync-alert {
+  background-color: var(--color-danger-soft);
+  border: 1px solid var(--color-danger-border);
+  border-left: 4px solid var(--color-danger);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.sync-alert__content {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: flex-start;
+}
+
+.sync-alert__text {
+  font-size: 0.875rem;
+  color: #7f1d1d;
+}
+
+/* ==========================================================================
+   6. VÙNG 3: NHÓM GIAO HÀNG & THẺ SẢN PHẨM (DATA ATTRIBUTES)
+   ========================================================================== */
+.shipment-group {
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.shipment-group__header {
+  padding: var(--space-md);
+  background-color: #f9fafb;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.shipment-group--fresh .shipment-group__header {
+  background-color: #f0fdf4;
+  border-bottom-color: #bbf7d0;
+}
+
+.shipment-group__heading {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.shipment-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.shipment-tag--fresh {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.shipment-tag--dry {
+  background-color: #4b5563;
+  color: #ffffff;
+}
+
+.shipment-group__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.slot-picker {
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 0.85rem;
+}
+
+.slot-picker__select {
+  flex: 1;
+  min-height: 40px;
+  padding: 0 var(--space-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-card);
+  font-size: 0.85rem;
+  color: var(--color-text-main);
+}
+
+/* Thẻ sản phẩm */
+.shipment-group__body {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-item {
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "product product"
+    "price qty"
+    "actions actions";
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+/* Trạng thái đổi giá qua Data Attribute */
+.cart-item[data-price-changed="true"] {
+  background-color: var(--color-warning-bg);
+  border-left: 4px solid var(--color-warning-border);
+}
+
+/* Trạng thái hết hàng qua Data Attribute */
+.cart-item[data-stock="out"] {
+  background-color: #fafafa;
+}
+
+.cart-item[data-stock="out"] .cart-item__product,
+.cart-item[data-stock="out"] .cart-item__price,
+.cart-item[data-stock="out"] .cart-item__qty {
+  opacity: 0.6;
+}
+
+.cart-item__product {
+  grid-area: product;
+  display: flex;
+  gap: var(--space-sm);
+  align-items: flex-start;
+}
+
+.cart-item__img {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  font-size: 1.75rem;
+  background-color: var(--color-bg-page);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
+
+.cart-item__name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.cart-item__spec {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-bottom: 6px;
+}
+
+.status-pill {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.status-pill--in {
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.status-pill--warning {
+  background-color: #fef3c7;
+  color: var(--color-warning-text);
+}
+
+.status-pill--danger {
+  background-color: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.cart-item__price {
+  grid-area: price;
+  display: flex;
+  flex-direction: column;
+}
+
+.price-old {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.price-current {
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-text-main);
+}
+
+.cart-item[data-price-changed="true"] .price-current {
+  color: var(--color-warning-text);
+}
+
+/* Cụm tăng giảm số lượng */
+.cart-item__qty {
+  grid-area: qty;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-card);
+}
+
+.qty-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--color-text-main);
+}
+
+.qty-btn:disabled {
+  cursor: not-allowed;
+  color: var(--color-text-muted);
+}
+
+.qty-input {
+  width: 40px;
+  height: 44px;
+  border: none;
+  border-left: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  -moz-appearance: textfield;
+}
+
+.qty-input::-webkit-inner-spin-button,
+.qty-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.cart-item__actions {
+  grid-area: actions;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--space-xs);
+  border-top: 1px dashed var(--color-border);
+}
+
+.cart-item__subtotal {
+  font-size: 1rem;
+  color: var(--color-primary);
+}
+
+.cart-item__subtotal--muted {
+  color: var(--color-text-muted);
+}
+
+.btn-remove {
+  min-height: 44px;
+  padding: 0 var(--space-sm);
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.btn-remove:hover {
+  color: var(--color-danger);
+}
+
+/* ==========================================================================
+   7. VÙNG 4: TÓM TẮT ĐƠN HÀNG & NÚT ĐẶT HÀNG (GHIM ĐÁY TRÊN MOBILE)
+   ========================================================================== */
+.order-summary {
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.order-summary__title {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.promo-box {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.promo-box__input {
+  flex: 1;
+  min-height: 44px;
+  padding: 0 var(--space-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+}
+
+.summary-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  font-size: 0.9rem;
+}
+
+.summary-list__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.summary-list__row dt {
+  color: var(--color-text-muted);
+}
+
+.summary-list__row--discount dd {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.summary-list__row--total {
+  margin-top: var(--space-xs);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-border);
+}
+
+.summary-list__row--total dt {
+  color: var(--color-text-main);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.summary-list__row--total dd {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+}
+
+.summary-list__row--total strong {
+  font-size: 1.25rem;
+  color: var(--color-danger);
+}
+
+.summary-list__row--total small {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+/* Thanh chốt đơn ghim cố định ở đáy màn hình điện thoại */
+.checkout-action {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background-color: var(--color-bg-card);
+  padding: var(--space-sm) var(--space-md);
+  box-shadow: var(--shadow-sticky);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.checkout-action__blocker {
+  font-size: 0.8rem;
+  color: var(--color-danger);
+  text-align: center;
+}
+
+.btn--checkout {
+  width: 100%;
+  min-height: 48px;
+  font-size: 1rem;
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.btn--checkout:hover:not(:disabled) {
+  background-color: var(--color-primary-dark);
+}
+
+.btn--checkout:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   8. GIAO DIỆN MÁY TÍNH (DESKTOP >= 1024px)
+   ========================================================================== */
+@media (min-width: 1024px) {
+  body {
+    padding-bottom: var(--space-lg);
+  }
+
+  .cart-page {
+    padding: var(--space-lg);
+  }
+
+  /* Chia 2 cột bất đối xứng: 68% danh sách hàng - 32% tóm tắt đơn */
+  .cart-layout {
+    grid-template-columns: minmax(0, 1fr) 360px;
+    align-items: start;
+    gap: var(--space-lg);
+  }
+
+  .btn--danger-soft {
+    width: auto;
+    white-space: nowrap;
+  }
+
+  .sync-alert {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .shipment-group__header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Trải ngang thẻ sản phẩm thành 1 hàng 4 cột thẳng hàng */
+  .cart-item {
+    grid-template-columns: minmax(0, 2.2fr) 1fr auto 1.1fr;
+    grid-template-areas: "product price qty actions";
+    gap: var(--space-md);
+  }
+
+  .cart-item__actions {
+    flex-direction: column;
+    align-items: flex-end;
+    border-top: none;
+    padding-top: 0;
+    gap: 2px;
+  }
+
+  /* Khung tóm tắt trượt cố định bên phải */
+  .order-summary {
+    position: sticky;
+    top: 20px;
+  }
+
+  .checkout-action {
+    position: static;
+    box-shadow: none;
+    border-top: none;
+    padding: 0;
+  }
+}

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giỏ hàng - Cải tiến đồng bộ kho &amp; tách nhóm giao hàng</title>
+  <link rel="stylesheet" href="gio-hang.css">
+</head>
+<body>
+  <main class="cart-page">
+    <div class="cart-layout">
+      <!-- CỘT TRÁI: THÔNG TIN KHO, FREESHIP, CẢNH BÁO & DANH SÁCH HÀNG -->
+      <div class="cart-main">
+        
+        <!-- VÙNG 1: THANH ĐỊNH VỊ KHO & TIẾN TRÌNH FREESHIP -->
+        <header class="context-card">
+          <div class="location-bar">
+            <div class="location-bar__info">
+              <span class="location-bar__badge">Kho phục vụ gần nhất</span>
+              <address class="location-bar__address">
+                <strong>BHX - 124 Nguyễn Thị Minh Khai, P. Bến Thành, Q.1, TP.HCM</strong>
+                <span>Giao đến: 45 Lê Duẩn, P. Bến Nghé, Q.1</span>
+              </address>
+            </div>
+            <button type="button" class="btn btn--outline-primary">Thay đổi</button>
+          </div>
+
+          <div class="freeship-bar">
+            <div class="freeship-bar__header">
+              <label for="freeship-progress" class="freeship-bar__text">
+                Mua thêm <strong>65.000₫</strong> để được <strong>Miễn phí vận chuyển</strong> (Đơn hợp lệ từ 300.000₫)
+              </label>
+              <span class="freeship-bar__percent">78%</span>
+            </div>
+            <progress id="freeship-progress" class="freeship-bar__progress" value="235000" max="300000">78%</progress>
+
+            <!-- Gợi ý bù đơn giá trị nhỏ -->
+            <div class="quick-add">
+              <p class="quick-add__title">Gợi ý thêm nhanh để đủ Freeship:</p>
+              <div class="quick-add__list">
+                <article class="quick-add__item">
+                  <div class="quick-add__thumb" aria-hidden="true">🥬</div>
+                  <div class="quick-add__meta">
+                    <h3 class="quick-add__name">Rau muống nước gói 300g</h3>
+                    <span class="quick-add__price">12.000₫</span>
+                  </div>
+                  <button type="button" class="btn btn--quick-add" aria-label="Thêm Rau muống nước">+ Thêm</button>
+                </article>
+
+                <article class="quick-add__item">
+                  <div class="quick-add__thumb" aria-hidden="true">🧄</div>
+                  <div class="quick-add__meta">
+                    <h3 class="quick-add__name">Hành tím Lý Sơn túi 200g</h3>
+                    <span class="quick-add__price">24.000₫</span>
+                  </div>
+                  <button type="button" class="btn btn--quick-add" aria-label="Thêm Hành tím Lý Sơn">+ Thêm</button>
+                </article>
+
+                <article class="quick-add__item">
+                  <div class="quick-add__thumb" aria-hidden="true">🧂</div>
+                  <div class="quick-add__meta">
+                    <h3 class="quick-add__name">Nước mắm Nam Ngư 750ml</h3>
+                    <span class="quick-add__price">45.000₫</span>
+                  </div>
+                  <button type="button" class="btn btn--quick-add" aria-label="Thêm Nước mắm Nam Ngư">+ Thêm</button>
+                </article>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- VÙNG 2: KHỐI CẢNH BÁO ĐỒNG BỘ KHO / GIÁ KHI ĐỔI ĐỊA CHỈ -->
+        <aside class="sync-alert" role="alert" aria-live="polite">
+          <div class="sync-alert__content">
+            <span class="sync-alert__icon" aria-hidden="true">⚠️</span>
+            <div class="sync-alert__text">
+              <strong>Giỏ hàng vừa cập nhật theo kho siêu thị mới:</strong>
+              <p>Có <strong>1 sản phẩm tạm hết hàng</strong> và <strong>1 sản phẩm điều chỉnh giá</strong> tại chi nhánh Quận 1.</p>
+            </div>
+          </div>
+          <button type="button" class="btn btn--danger-soft">Xóa nhanh 1 món hết hàng</button>
+        </aside>
+
+        <!-- VÙNG 3: DANH SÁCH SẢN PHẨM TÁCH THEO NHÓM GIAO HÀNG -->
+        
+        <!-- Nhóm 1: Hàng tươi sống (Giao nhanh 2h) -->
+        <section class="shipment-group shipment-group--fresh" aria-labelledby="group-fresh-title">
+          <div class="shipment-group__header">
+            <div class="shipment-group__heading">
+              <span class="shipment-tag shipment-tag--fresh">Giao nhanh 2h</span>
+              <h2 id="group-fresh-title" class="shipment-group__title">Nhóm hàng tươi sống &amp; đông lạnh (3 món)</h2>
+            </div>
+
+            <fieldset class="slot-picker">
+              <legend class="sr-only">Chọn khung giờ giao hàng tươi sống</legend>
+              <label for="fresh-slot" class="slot-picker__label">Khung giờ nhận:</label>
+              <select id="fresh-slot" class="slot-picker__select">
+                <option value="today-16-18" selected>Hôm nay, 16:00 – 18:00 (Phí 15.000₫)</option>
+                <option value="today-18-20">Hôm nay, 18:00 – 20:00 (Phí 15.000₫)</option>
+                <option value="tomorrow-08-10">Ngày mai, 08:00 – 10:00 (Phí 10.000₫)</option>
+              </select>
+            </fieldset>
+          </div>
+
+          <div class="shipment-group__body">
+            <!-- Sản phẩm 1: Trạng thái bình thường -->
+            <article class="cart-item" data-stock="in">
+              <div class="cart-item__product">
+                <div class="cart-item__img" aria-hidden="true">🥩</div>
+                <div class="cart-item__details">
+                  <h3 class="cart-item__name">Thịt ba rọi heo C.P khay 300g</h3>
+                  <p class="cart-item__spec">Đơn giá quy đổi: 149.000₫/kg • Sai số cân ±10%</p>
+                  <span class="status-pill status-pill--in">Còn hàng tại kho Q.1</span>
+                </div>
+              </div>
+
+              <div class="cart-item__price">
+                <ins class="price-current">44.700₫</ins>
+              </div>
+
+              <div class="cart-item__qty">
+                <button type="button" class="qty-btn" aria-label="Giảm số lượng Thịt ba rọi heo">−</button>
+                <input type="number" class="qty-input" value="2" min="1" max="10" aria-label="Số lượng Thịt ba rọi heo">
+                <button type="button" class="qty-btn" aria-label="Tăng số lượng Thịt ba rọi heo">+</button>
+              </div>
+
+              <div class="cart-item__actions">
+                <strong class="cart-item__subtotal">89.400₫</strong>
+                <button type="button" class="btn-remove" aria-label="Xóa Thịt ba rọi heo">Xóa</button>
+              </div>
+            </article>
+
+            <!-- Sản phẩm 2: Trạng thái thay đổi giá theo kho mới -->
+            <article class="cart-item" data-stock="in" data-price-changed="true">
+              <div class="cart-item__product">
+                <div class="cart-item__img" aria-hidden="true">🥚</div>
+                <div class="cart-item__details">
+                  <h3 class="cart-item__name">Trứng gà tươi Ba Huân hộp 10 quả</h3>
+                  <p class="cart-item__spec">Quy cách: Hộp 10 quả • Hạn dùng 14 ngày</p>
+                  <span class="status-pill status-pill--warning">Giá vừa cập nhật theo kho Q.1 (+2.000₫)</span>
+                </div>
+              </div>
+
+              <div class="cart-item__price">
+                <del class="price-old">27.000₫</del>
+                <ins class="price-current">29.000₫</ins>
+              </div>
+
+              <div class="cart-item__qty">
+                <button type="button" class="qty-btn" aria-label="Giảm số lượng Trứng gà tươi">−</button>
+                <input type="number" class="qty-input" value="1" min="1" max="10" aria-label="Số lượng Trứng gà tươi">
+                <button type="button" class="qty-btn" aria-label="Tăng số lượng Trứng gà tươi">+</button>
+              </div>
+
+              <div class="cart-item__actions">
+                <strong class="cart-item__subtotal">29.000₫</strong>
+                <button type="button" class="btn-remove" aria-label="Xóa Trứng gà tươi">Xóa</button>
+              </div>
+            </article>
+
+            <!-- Sản phẩm 3: Trạng thái hết hàng tại kho mới -->
+            <article class="cart-item" data-stock="out">
+              <div class="cart-item__product">
+                <div class="cart-item__img" aria-hidden="true">🐟</div>
+                <div class="cart-item__details">
+                  <h3 class="cart-item__name">Cá hồi Coho cắt khúc khay 300g</h3>
+                  <p class="cart-item__spec">Đơn giá quy đổi: 330.000₫/kg</p>
+                  <span class="status-pill status-pill--danger">Tạm hết hàng tại kho Quận 1 (Không tính vào đơn)</span>
+                </div>
+              </div>
+
+              <div class="cart-item__price">
+                <span class="price-muted">99.000₫</span>
+              </div>
+
+              <div class="cart-item__qty">
+                <button type="button" class="qty-btn" disabled aria-label="Giảm số lượng Cá hồi Coho">−</button>
+                <input type="number" class="qty-input" value="1" disabled aria-label="Số lượng Cá hồi Coho">
+                <button type="button" class="qty-btn" disabled aria-label="Tăng số lượng Cá hồi Coho">+</button>
+              </div>
+
+              <div class="cart-item__actions">
+                <strong class="cart-item__subtotal cart-item__subtotal--muted">0₫</strong>
+                <button type="button" class="btn btn--danger-inline">Xóa món này</button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Nhóm 2: Hàng khô / Tiêu dùng (Giao tiêu chuẩn) -->
+        <section class="shipment-group shipment-group--dry" aria-labelledby="group-dry-title">
+          <div class="shipment-group__header">
+            <div class="shipment-group__heading">
+              <span class="shipment-tag shipment-tag--dry">Giao tiêu chuẩn</span>
+              <h2 id="group-dry-title" class="shipment-group__title">Nhóm hàng khô &amp; gia dụng (1 món)</h2>
+            </div>
+
+            <fieldset class="slot-picker">
+              <legend class="sr-only">Chọn khung giờ giao hàng khô</legend>
+              <label for="dry-slot" class="slot-picker__label">Khung giờ nhận:</label>
+              <select id="dry-slot" class="slot-picker__select">
+                <option value="today-17-21" selected>Hôm nay, 17:00 – 21:00 (Phí 10.000₫)</option>
+                <option value="tomorrow-09-12">Ngày mai, 09:00 – 12:00 (Miễn phí)</option>
+              </select>
+            </fieldset>
+          </div>
+
+          <div class="shipment-group__body">
+            <article class="cart-item" data-stock="in">
+              <div class="cart-item__product">
+                <div class="cart-item__img" aria-hidden="true">🫗</div>
+                <div class="cart-item__details">
+                  <h3 class="cart-item__name">Dầu ăn thực vật Tường An chai 2 Lít</h3>
+                  <p class="cart-item__spec">Tặng kèm 1 chai dầu ăn 400ml</p>
+                  <span class="status-pill status-pill--in">Còn hàng tại kho Q.1</span>
+                </div>
+              </div>
+
+              <div class="cart-item__price">
+                <del class="price-old">132.000₫</del>
+                <ins class="price-current">116.600₫</ins>
+              </div>
+
+              <div class="cart-item__qty">
+                <button type="button" class="qty-btn" aria-label="Giảm số lượng Dầu ăn Tường An">−</button>
+                <input type="number" class="qty-input" value="1" min="1" max="10" aria-label="Số lượng Dầu ăn Tường An">
+                <button type="button" class="qty-btn" aria-label="Tăng số lượng Dầu ăn Tường An">+</button>
+              </div>
+
+              <div class="cart-item__actions">
+                <strong class="cart-item__subtotal">116.600₫</strong>
+                <button type="button" class="btn-remove" aria-label="Xóa Dầu ăn Tường An">Xóa</button>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <!-- CỘT PHẢI (HOẶC THANH GHIM ĐÁY TRÊN MOBILE): TÓM TẮT CHI PHÍ & CHỐT ĐƠN -->
+      <aside class="order-summary" aria-labelledby="summary-title">
+        <h2 id="summary-title" class="order-summary__title">Tóm tắt đơn hàng</h2>
+
+        <form class="promo-box" onsubmit="return false;">
+          <label for="promo-code" class="sr-only">Mã khuyến mãi</label>
+          <input type="text" id="promo-code" class="promo-box__input" placeholder="Nhập mã giảm giá (VD: BHX20K)">
+          <button type="button" class="btn btn--outline-primary">Áp dụng</button>
+        </form>
+
+        <dl class="summary-list">
+          <div class="summary-list__row">
+            <dt>Tạm tính (3 món hợp lệ)</dt>
+            <dd>235.000₫</dd>
+          </div>
+          <div class="summary-list__row">
+            <dt>Phí giao hàng tươi sống (2h)</dt>
+            <dd>15.000₫</dd>
+          </div>
+          <div class="summary-list__row">
+            <dt>Phí giao hàng tiêu chuẩn</dt>
+            <dd>10.000₫</dd>
+          </div>
+          <div class="summary-list__row summary-list__row--discount">
+            <dt>Tiết kiệm khuyến mãi</dt>
+            <dd>−15.400₫</dd>
+          </div>
+          <div class="summary-list__row summary-list__row--total">
+            <dt>Tổng thanh toán</dt>
+            <dd>
+              <strong>260.000₫</strong>
+              <small>(Đã bao gồm VAT)</small>
+            </dd>
+          </div>
+        </dl>
+
+        <div class="checkout-action">
+          <p class="checkout-action__blocker" role="status">
+            Vui lòng xóa <strong>1 sản phẩm hết hàng</strong> ở trên để tiếp tục đặt đơn.
+          </p>
+          <button type="button" class="btn btn--checkout" disabled>
+            Tiến hành đặt hàng (260.000₫)
+          </button>
+        </div>
+      </aside>
+    </div>
+  </main>
+</body>
+</html>
